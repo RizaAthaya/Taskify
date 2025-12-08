@@ -7,7 +7,7 @@ import {
   type User,
   signOut,
 } from "firebase/auth";
-import type { TAuthEmailPassword } from "./type";
+import type { IAuthEmailPassword } from "./type";
 import { auth } from "../../libs/firebase";
 
 // GOOGLE SIGN IN
@@ -17,12 +17,12 @@ export const signInWithGoogle = async () => {
 };
 
 // REGISTER
-export const registerWithEmail = async ({ email, password }: TAuthEmailPassword) => {
+export const registerWithEmail = async ({ email, password }: IAuthEmailPassword) => {
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 // LOGIN
-export const loginWithEmail = async ({ email, password }: TAuthEmailPassword) => {
+export const loginWithEmail = async ({ email, password }: IAuthEmailPassword) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
