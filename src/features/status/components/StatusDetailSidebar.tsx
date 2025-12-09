@@ -6,7 +6,7 @@ import type { IStatus, IUpdateStatus } from "@/api/status/type";
 import { useUpdateStatus } from "../hooks/useUpdateStatus";
 import { useDeleteStatusAndTasks } from "../hooks/useDeleteStatusAndTasks";
 import InputTaskDetail from "@/components/form/input/task-detail";
-import TextareaTaskDetail from "@/components/ui/textarea/task-detail";
+import TextareaTaskDetail from "@/components/form/textarea/task-detail";
 import Popup from "@/components/ui/popup";
 import Button from "@/components/ui/button";
 import { useAlert } from "@/context/alert/useAlert";

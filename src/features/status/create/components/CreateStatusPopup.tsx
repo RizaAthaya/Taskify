@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import type { ICreateStatus } from "@/api/status/type";
 import { useCreateStatus } from "../../hooks/useCreateStatus";
 import InputTaskDetail from "@/components/form/input/task-detail";
-import TextareaTaskDetail from "@/components/ui/textarea/task-detail";
+import TextareaTaskDetail from "@/components/form/textarea/task-detail";
 import Button from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { useAlert } from "@/context/alert/useAlert";
