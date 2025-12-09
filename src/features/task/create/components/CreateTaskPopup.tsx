@@ -45,6 +45,7 @@ const CreateTaskPopup = ({ open, onClose, userId }: CreateTaskPopupProps) => {
 
   const createTaskMutation = useCreateTask(
     () => {
+      showAlert({ message: "Task berhasil dibuat", variant: "success" });
       setStatus("todo");
       setPriority("moderate");
       reset();

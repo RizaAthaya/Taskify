@@ -2,12 +2,29 @@ import { useState } from "react";
 import { useUser } from "@/context/user/useUser";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "@/context/alert/useAlert";
+import { log } from "@/utils/log";
 
 const Header = () => {
   const { user, logout } = useUser();
   const navigate = useNavigate();
+  const { showAlert } = useAlert();
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setMenuOpen(false);
+      showAlert({ variant: "success", message: "Berhasil logout" });
+    } catch (error) {
+      log.error("Logout failed:", error);
+      showAlert({
+        variant: "error",
+        message: (error as Error).message || "Gagal logout. Silakan coba lagi.",
+      });
+    }
+  };
 
   const initials = user?.displayName
     ? user.displayName
@@ -69,7 +86,7 @@ const Header = () => {
 
             {/* LOGOUT */}
             <button
-              onClick={logout}
+              onClick={handleLogout}
               className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 hover:text-red-700 transition font-medium flex items-center gap-2"
             >
               <Icon icon="mdi:logout" className="w-4 h-4 text-red-600" />

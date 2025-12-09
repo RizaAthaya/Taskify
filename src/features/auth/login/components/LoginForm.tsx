@@ -25,11 +25,14 @@ const LoginForm = () => {
   // tanstack mutate
   const { mutate, isPending } = useLogin(
     () => {
-      showAlert({ variant: "success", message: "Login successfully!" });
+      showAlert({ variant: "success", message: "Login berhasil" });
     },
     (error) => {
       log.error("Login failed:", error);
-      showAlert({ variant: "error", message: error.message });
+      showAlert({
+        variant: "error",
+        message: error.message || "Login gagal. Silakan coba lagi.",
+      });
     }
   );
 

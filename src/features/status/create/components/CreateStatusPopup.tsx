@@ -40,6 +40,7 @@ const CreateStatusPopup = ({ open, onClose, userId }: CreateStatusPopupProps) =>
 
   const createStatusMutation = useCreateStatus(
     () => {
+      showAlert({ message: "Status berhasil dibuat", variant: "success" });
       reset();
       handleClose();
     },

@@ -2,7 +2,6 @@ import { auth } from "@/libs/firebase";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { useEffect, useState, type ReactNode } from "react";
 import { UserContext } from "./useUser";
-import { log } from "@/utils/log";
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   // states
@@ -11,12 +10,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   // logout
   const logout = async () => {
-    try {
-      await auth.signOut();
-      setUser(null);
-    } catch (error) {
-      log.error("Logout failed:", error);
-    }
+    await auth.signOut();
+    setUser(null);
   };
 
   // refresh user

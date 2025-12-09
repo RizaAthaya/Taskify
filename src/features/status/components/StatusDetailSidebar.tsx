@@ -34,14 +34,22 @@ export const StatusDetailSidebar: React.FC<StatusDetailSidebarProps> = ({ status
   });
 
   const updateStatusMutation = useUpdateStatus(
-    () => {},
+    () => {
+      showAlert({ message: "Status berhasil diperbarui", variant: "success" });
+    },
     (err) => {
       showAlert({ message: err.message || "Gagal memperbarui status", variant: "error" });
     }
   );
 
   const deleteStatusMutation = useDeleteStatusAndTasks(
-    () => onClose(),
+    () => {
+      showAlert({
+        message: "Status berhasil dihapus (beserta semua task dengan status ini)",
+        variant: "success",
+      });
+      onClose();
+    },
     (err) => {
       showAlert({ message: err.message || "Gagal menghapus status", variant: "error" });
     }

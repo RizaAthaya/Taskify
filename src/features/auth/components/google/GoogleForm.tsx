@@ -9,11 +9,14 @@ const GoogleForm = () => {
 
   const { mutate: loginGoogle, isPending } = useLoginWithGoogle(
     () => {
-      showAlert({ variant: "success", message: "Login successfully!" });
+      showAlert({ variant: "success", message: "Login dengan Google berhasil" });
     },
     (error) => {
       log.error("Login failed:", error);
-      showAlert({ variant: "error", message: error.message });
+      showAlert({
+        variant: "error",
+        message: error.message || "Login dengan Google gagal. Silakan coba lagi.",
+      });
     }
   );
 
