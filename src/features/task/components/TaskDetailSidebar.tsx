@@ -28,7 +28,11 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
   const [closing, setClosing] = useState(false);
 
   const updateTaskMutation = useUpdateTask(
-    () => {},
+    () =>
+      showAlert({
+        message: "Task berhasil diperbarui",
+        variant: "success",
+      }),
     (err) =>
       showAlert({
         message: err.message || "Gagal memperbarui task",
@@ -37,7 +41,13 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
   );
 
   const deleteTaskMutation = useDeleteTask(
-    () => onClose(),
+    () => {
+      showAlert({
+        message: "Task berhasil dihapus",
+        variant: "success",
+      });
+      onClose();
+    },
     (err) =>
       showAlert({
         message: err.message || "Gagal menghapus task",
@@ -55,7 +65,6 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
     mode: "onChange",
   });
 
-  // Safely observe field values without calling watch() inline in JSX
   const statusValue = useWatch({ control, name: "status" });
   const priorityValue = useWatch({ control, name: "priority" });
 

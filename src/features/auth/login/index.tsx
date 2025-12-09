@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import GoogleForm from "../components/google/GoogleForm";
+import todo from "../../../assets/todos.svg";
+import work from "../../../assets/work.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ const Login = () => {
 
         {/* Image with fade-in */}
         <img
-          src="/src/assets/todos.svg"
+          src={todo}
           alt="Todos illustration"
           className={`max-w-md xl:max-w-lg transition-opacity duration-700 z-10 ${leftLoaded ? "opacity-100" : "opacity-0"}`}
           onLoad={() => setLeftLoaded(true)}
@@ -41,7 +43,7 @@ const Login = () => {
       <div className="w-full h-full lg:w-1/2 flex items-center justify-center relative overflow-hidden bg-purple-800">
         {/* Background Image */}
         <img
-          src="/src/assets/work.jpg"
+          src={work}
           alt="Work background"
           loading="eager"
           fetchPriority="high"
