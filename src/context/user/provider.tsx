@@ -19,6 +19,17 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // refresh user
+  const refreshUser = async () => {
+    if (auth.currentUser) {
+      await auth.currentUser.reload();
+
+      setUser({
+        ...auth.currentUser,
+      });
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -29,7 +40,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, loading, setUser, logout }}>
+    <UserContext.Provider value={{ user, loading, setUser, logout, refreshUser }}>
       {children}
     </UserContext.Provider>
   );

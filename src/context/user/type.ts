@@ -5,4 +5,5 @@ export type TUserContext = {
   loading: boolean;
   setUser: (user: User | null) => void;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 };

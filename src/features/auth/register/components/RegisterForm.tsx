@@ -1,4 +1,4 @@
-import type { IAuthEmailPassword } from "@/api/auth/type";
+import type { IRegisterEmailPassword } from "@/api/auth/type";
 import { useAlert } from "@/context/alert/useAlert";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useRegister } from "../hooks/useRegister.ts";
@@ -7,6 +7,7 @@ import InputPassword from "@/components/form/input/password";
 import Button from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 import { log } from "@/utils/log";
+import { useUser } from "@/context/user/useUser.ts";
 
 const RegisterForm = () => {
   // react hook form
@@ -14,9 +15,10 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IAuthEmailPassword>();
+  } = useForm<IRegisterEmailPassword>();
+  const { refreshUser } = useUser();
 
-  const handleRegister: SubmitHandler<IAuthEmailPassword> = (data) => {
+  const handleRegister: SubmitHandler<IRegisterEmailPassword> = (data) => {
     mutate(data);
   };
 
@@ -24,7 +26,8 @@ const RegisterForm = () => {
 
   // tanstack mutate
   const { mutate, isPending } = useRegister(
-    () => {
+    async () => {
+      await refreshUser();
       showAlert({ variant: "success", message: "Register successfully!" });
     },
     (error) => {
@@ -37,6 +40,16 @@ const RegisterForm = () => {
     <form onSubmit={handleSubmit(handleRegister)} className="relative space-y-6 z-20">
       {/* Title  */}
       <h2 className="text-xl lg:text-2xl font-semibold text-center mb-4">Register</h2>
+
+      <Input
+        label="Full Name"
+        type="text"
+        placeholder="Enter your full name"
+        {...register("displayName", {
+          required: "Full name is required",
+        })}
+        errorMessage={errors.displayName?.message}
+      />
 
       <Input
         label="Email"

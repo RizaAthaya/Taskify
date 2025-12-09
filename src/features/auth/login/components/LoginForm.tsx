@@ -1,4 +1,4 @@
-import type { IAuthEmailPassword } from "@/api/auth/type";
+import type { ILoginEmailPassword } from "@/api/auth/type";
 import { useAlert } from "@/context/alert/useAlert";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useLogin } from "../hooks/useLogin";
@@ -14,9 +14,9 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IAuthEmailPassword>();
+  } = useForm<ILoginEmailPassword>();
 
-  const handleLogin: SubmitHandler<IAuthEmailPassword> = (data) => {
+  const handleLogin: SubmitHandler<ILoginEmailPassword> = (data) => {
     mutate(data);
   };
 

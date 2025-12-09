@@ -6,8 +6,9 @@ import {
   onAuthStateChanged,
   type User,
   signOut,
+  updateProfile,
 } from "firebase/auth";
-import type { IAuthEmailPassword } from "./type";
+import type { ILoginEmailPassword, IRegisterEmailPassword } from "./type";
 import { auth } from "../../libs/firebase";
 
 // GOOGLE SIGN IN
@@ -17,12 +18,21 @@ export const signInWithGoogle = async () => {
 };
 
 // REGISTER
-export const registerWithEmail = async ({ email, password }: IAuthEmailPassword) => {
-  return await createUserWithEmailAndPassword(auth, email, password);
+export const registerWithEmail = async ({
+  email,
+  password,
+  displayName,
+}: IRegisterEmailPassword) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+
+  await updateProfile(user, { displayName: displayName });
+
+  return userCredential;
 };
 
 // LOGIN
-export const loginWithEmail = async ({ email, password }: IAuthEmailPassword) => {
+export const loginWithEmail = async ({ email, password }: ILoginEmailPassword) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
