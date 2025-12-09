@@ -147,14 +147,14 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
 
           <div className="flex-1">
             <Select<TTaskPriority>
-              label="Priority"
+              label="Prioritas"
               value={priorityValue as TTaskPriority}
               onChange={(v) => setValue("priority", v, { shouldDirty: true })}
               options={[
-                { value: "low", label: "Low" },
-                { value: "moderate", label: "Moderate" },
-                { value: "high", label: "High" },
-                { value: "urgent", label: "Urgent" },
+                { value: "low", label: "Rendah" },
+                { value: "moderate", label: "Sedang" },
+                { value: "high", label: "Tinggi" },
+                { value: "urgent", label: "Mendesak" },
               ]}
             />
           </div>
@@ -164,7 +164,7 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
 
         <div className="flex justify-between items-center mt-auto">
           <p className="text-gray-400 text-sm">
-            Created: {new Date(task.createdAt * 1000).toLocaleString()}
+            Dibuat: {new Date(task.createdAt * 1000).toLocaleString()}
           </p>
 
           <button

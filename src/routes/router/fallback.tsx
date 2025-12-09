@@ -1,8 +1,8 @@
-import Task from "@/features/task";
+import NotFoundPage from "@/features/fallback/not-found";
 
 export const fallbackRoutes = [
   {
     path: "*",
-    element: <Task />,
+    element: <NotFoundPage />,
   },
 ];

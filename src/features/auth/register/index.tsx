@@ -37,7 +37,7 @@ const Register = () => {
           {/* Line */}
           <div className="flex items-center my-4">
             <div className="grow border-t border-gray-300"></div>
-            <span className="mx-4 text-gray-500">or</span>
+            <span className="mx-4 text-gray-500">atau</span>
             <div className="grow border-t border-gray-300"></div>
           </div>
 
@@ -49,12 +49,12 @@ const Register = () => {
           {/* to login */}
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">
-              Already have an account?{" "}
+              Sudah punya akun?{" "}
               <button
                 onClick={() => navigate("/auth/login")}
                 className="text-purple-600 hover:underline cursor-pointer"
               >
-                Login here
+                Masuk di sini
               </button>
             </p>
           </div>
@@ -71,10 +71,10 @@ const Register = () => {
             rightLoaded ? "opacity-100" : "opacity-0"
           }`}
         >
-          <h1 className="font-bold text-4xl">Join Us at Taskify ✨</h1>
+          <h1 className="font-bold text-4xl">Bergabunglah dengan Taskify ✨</h1>
           <p className="text-left text-lg">
-            Start managing your tasks more efficiently with Taskify. Create your account and take
-            the first step toward a more organized and productive workflow.
+            Mulailah mengelola task Anda dengan lebih efisien bersama Taskify. Buat akun Anda dan
+            ambil langkah pertama menuju alur kerja yang lebih teratur dan produktif.
           </p>
         </div>
 

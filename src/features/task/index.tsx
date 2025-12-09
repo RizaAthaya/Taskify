@@ -22,6 +22,7 @@ const Task = () => {
 
   const [openPopup, setOpenPopup] = useState(false);
   const [openStatusPopup, setOpenStatusPopup] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const { data: tasks, isLoading, isError, error } = useGetTasksByUser(user?.uid || "");
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
   const { data: statuses } = useGetStatusesByUser(user?.uid || "", !!user?.uid);
@@ -178,28 +179,42 @@ const Task = () => {
     <div className="px-4 sm:px-6 md:px-10 py-6 sm:py-8 space-y-5 sm:space-y-6">
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-800">Tasks</h1>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setOpenStatusPopup(true)}
-            className="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 
-                       text-gray-800 font-semibold rounded-lg transition shadow-md cursor-pointer text-sm"
-          >
-            <Icon icon="mdi:plus" className="w-5 h-5" />
-            Tambah Status
-          </button>
-          <button
-            onClick={() => setOpenPopup(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 
-                       text-white font-semibold rounded-lg transition shadow-md cursor-pointer"
-          >
-            <Icon icon="mdi:plus" className="w-5 h-5" />
-            Tambah Task
-          </button>
+        <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-800">Daftar Task</h1>
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto sm:items-center">
+          <div className="relative w-full sm:w-64 md:mr-2">
+            <Icon
+              icon="mdi:magnify"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"
+            />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Cari task berdasarkan judul..."
+              className="bg-white border-purple-50 w-full pl-10 pr-3 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-md"
+            />
+          </div>
+          <div className="flex gap-4 self-center sm:self-auto">
+            <button
+              onClick={() => setOpenStatusPopup(true)}
+              className="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 
+                         text-gray-800 font-semibold rounded-lg transition shadow-md cursor-pointer text-sm"
+            >
+              <Icon icon="mdi:plus" className="w-5 h-5" />
+              Tambah Status
+            </button>
+            <button
+              onClick={() => setOpenPopup(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 
+                         text-white font-semibold rounded-lg transition shadow-md cursor-pointer"
+            >
+              <Icon icon="mdi:plus" className="w-5 h-5" />
+              Tambah Task
+            </button>
+          </div>
         </div>
       </div>
-
-      {isLoading && <p className="text-gray-500 italic">Loading tasks...</p>}
+      {isLoading && <p className="text-gray-500 italic">Sedang memuat daftar task...</p>}
 
       {/* KANBAN */}
       <div className="flex gap-4 sm:gap-6 overflow-x-auto py-4">
@@ -217,7 +232,13 @@ const Task = () => {
         {orderedStatuses.map((status, index) => {
           const key = status.value as TTaskStatus;
           const ids = statusOrder[key] || [];
-          const inStatus = baseTasks.filter((t) => getCurrentStatus(t) === key);
+          const inStatus = baseTasks.filter((t) => {
+            const matchesStatus = getCurrentStatus(t) === key;
+            if (!searchTerm) return matchesStatus;
+            const name = (t.name || "").toLowerCase();
+            const query = searchTerm.toLowerCase();
+            return matchesStatus && name.includes(query);
+          });
 
           const orderedTasks = [
             ...(ids.map((id) => inStatus.find((t) => t.id === id)).filter(Boolean) as ITask[]),
@@ -293,7 +314,7 @@ const Task = () => {
                 ) : (
                   <div className="flex flex-col items-center justify-center py-10 text-gray-400 space-y-2">
                     <Icon icon="mdi:inbox-remove-outline" className="w-12 h-12" />
-                    <p className="text-sm">No tasks yet</p>
+                    <p className="text-sm">Belum ada task di status ini.</p>
                   </div>
                 )}
               </div>
@@ -305,8 +326,10 @@ const Task = () => {
       {baseTasks.length === 0 && !isLoading && (
         <div className="flex flex-col items-center justify-center mt-10 text-center text-gray-400">
           <Icon icon="mdi:clipboard-outline" className="w-16 h-16 mb-4 text-gray-300" />
-          <p className="text-lg font-semibold">No tasks available</p>
-          <p className="text-sm mt-1 text-gray-400">Add a new task to get started.</p>
+          <p className="text-lg font-semibold">Belum ada task</p>
+          <p className="text-sm mt-1 text-gray-400">
+            Tambahkan task baru untuk mulai menggunakan aplikasi.
+          </p>
         </div>
       )}
 

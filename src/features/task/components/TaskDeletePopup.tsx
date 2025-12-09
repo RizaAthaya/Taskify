@@ -19,15 +19,15 @@ const TaskDeletePopup: React.FC<TaskDeletePopupProps> = ({
     <Popup
       open={open}
       onClose={onCancel}
-      title="Delete Task"
-      description="Are you sure you want to delete this task?"
+      title="Hapus Task"
+      description="Apakah Anda yakin ingin menghapus task ini?"
       actions={
         <>
           <Button variant="neutral" onClick={onCancel}>
-            Cancel
+            Batal
           </Button>
           <Button variant="primary" onClick={onConfirm} disabled={isLoading}>
-            Yes
+            Ya, hapus
           </Button>
         </>
       }

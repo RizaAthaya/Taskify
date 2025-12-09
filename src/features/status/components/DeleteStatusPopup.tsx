@@ -19,7 +19,7 @@ const DeleteStatusPopup: React.FC<DeleteStatusPopupProps> = ({
     <Popup
       open={open}
       onClose={onCancel}
-      title="Delete Status"
+      title="Hapus Status"
       description="Apakah Anda yakin menghapus status ini? Semua task dengan status ini akan ikut dihapus."
       actions={
         <>

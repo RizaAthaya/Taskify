@@ -118,7 +118,7 @@ export const StatusDetailSidebar: React.FC<StatusDetailSidebarProps> = ({ status
       <Popup
         open={confirmDelete}
         onClose={() => setConfirmDelete(false)}
-        title="Delete Status"
+        title="Hapus Status"
         description="Apakah Anda yakin menghapus status ini? Semua task dengan status ini akan ikut dihapus."
         actions={
           <>

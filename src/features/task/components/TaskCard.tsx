@@ -41,6 +41,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onOpenDetail, statusVi
   const statusIcon = statusVisual?.icon ?? "mdi:checkbox-blank-circle-outline";
   const statusColorClass = statusVisual?.colorClass ?? "text-gray-400";
 
+  const priorityLabelMap: Record<TTaskPriority, string> = {
+    low: "Rendah",
+    moderate: "Sedang",
+    high: "Tinggi",
+    urgent: "Mendesak",
+  };
+
   const buttonClass = editable
     ? "bg-green-700 text-white hover:bg-green-600"
     : "bg-gray-100 text-gray-400 hover:bg-gray-200";
@@ -97,16 +104,16 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onOpenDetail, statusVi
             }}
             className={`px-2.5 py-0.5 rounded-full text-base font-semibold cursor-pointer ${PRIORITY_BADGE[priority]}`}
           >
-            <option value="low">Low</option>
-            <option value="moderate">Moderate</option>
-            <option value="high">High</option>
-            <option value="urgent">Urgent</option>
+            <option value="low">Rendah</option>
+            <option value="moderate">Sedang</option>
+            <option value="high">Tinggi</option>
+            <option value="urgent">Mendesak</option>
           </select>
         ) : (
           <span
             className={`px-2.5 py-0.5 rounded-full text-base font-semibold ${PRIORITY_BADGE[priority]} capitalize`}
           >
-            {priority}
+            {priorityLabelMap[priority]}
           </span>
         )}
       </div>

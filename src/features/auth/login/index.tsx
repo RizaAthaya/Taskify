@@ -18,11 +18,11 @@ const Login = () => {
         <div
           className={`flex flex-col gap-5 transition-opacity duration-700 z-10 ${leftLoaded ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="font-bold text-4xl">Welcome to Taskify! 👋</h1>
+          <h1 className="font-bold text-4xl">Selamat datang di Taskify! 👋</h1>
           <p className="text-left text-lg">
-            A simple and efficient task management platform designed to help you organize, track,
-            and complete your daily activities. Perfect for staying productive and keeping your work
-            on schedule.
+            Platform manajemen task yang sederhana dan efisien untuk membantu Anda mengatur,
+            melacak, dan menyelesaikan aktivitas harian. Cocok untuk menjaga produktivitas dan
+            memastikan pekerjaan Anda tetap terjadwal.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ const Login = () => {
           {/* Line */}
           <div className="flex items-center my-4">
             <div className="grow border-t border-gray-300"></div>
-            <span className="mx-4 text-gray-500">or</span>
+            <span className="mx-4 text-gray-500">atau</span>
             <div className="grow border-t border-gray-300"></div>
           </div>
 
@@ -76,12 +76,12 @@ const Login = () => {
           {/* to register */}
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">
-              Have no account yet?{" "}
+              Belum punya akun?{" "}
               <button
                 onClick={() => navigate("/auth/register")}
                 className="text-purple-600 hover:underline cursor-pointer"
               >
-                Register here
+                Daftar di sini
               </button>
             </p>
           </div>

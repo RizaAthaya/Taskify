@@ -122,14 +122,14 @@ const CreateTaskPopup = ({ open, onClose, userId }: CreateTaskPopupProps) => {
         </div>
         <div className="flex-1">
           <Select<TTaskPriority>
-            label="Priority"
+            label="Prioritas"
             value={priority}
             onChange={setPriority}
             options={[
-              { value: "low", label: "Low" },
-              { value: "moderate", label: "Moderate" },
-              { value: "high", label: "High" },
-              { value: "urgent", label: "Urgent" },
+              { value: "low", label: "Rendah" },
+              { value: "moderate", label: "Sedang" },
+              { value: "high", label: "Tinggi" },
+              { value: "urgent", label: "Mendesak" },
             ]}
           />
         </div>
