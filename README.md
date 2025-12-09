@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# **Taskify -- Kanban Task Management App**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Taskify is a modern, flexible **Kanban-style task management web app**
+built with **React, Vite, and TypeScript**.\
+Users can fully customize task statuses, manage tasks easily, and
+reorder items using an intuitive **drag-and-drop Kanban board**.
 
-Currently, two official plugins are available:
+------------------------------------------------------------------------
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 **Features**
 
-## React Compiler
+-   **Kanban Board** with drag-and-drop interaction
+-   **Task CRUD** (create, update, delete, reorder)
+-   **Status CRUD** (custom status creation, edit, delete, reorder)
+-   **Task Detail Sidebar** with Notion-like editing
+-   **Responsive UI** using Tailwind CSS
+-   **Firebase Authentication**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+------------------------------------------------------------------------
 
-## Expanding the ESLint configuration
+## 🧪 **Demo**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Visit the live application here: [Taskify Live on Vercel](https://taskify-liart-nu.vercel.app/auth/login)
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+<img width="1919" height="992" alt="image" src="https://github.com/user-attachments/assets/2782908c-1b77-444f-b74a-c3aa6db57d30" />
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+Use this account to explore the app immediately:
+
+    Email: riza@example.com
+    Password: password
+
+------------------------------------------------------------------------
+
+## 🛠️ **Tech Stack**
+
+-   **React** (with hooks + context)
+-   **Vite**
+-   **TypeScript**
+-   **Tailwind CSS**
+-   **Firebase**
+
+------------------------------------------------------------------------
+
+## 📦 **Installation & Setup**
+
+Follow these steps to run Taskify locally:
+
+### 1️⃣ **Clone the repository**
+
+``` bash
+git clone https://github.com/RizaAthaya/Taskify.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2️⃣ **Navigate into the project directory**
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+``` bash
+cd Taskify
 ```
+
+### 3️⃣ **Install dependencies**
+
+``` bash
+npm install
+```
+
+### 4️⃣ **Setup environment variables**
+
+A pre-filled example file is provided.\
+Copy `.env.example` into `.env`:
+
+``` bash
+cp .env.example .env
+```
+
+### 5️⃣ **Start the development server**
+
+``` bash
+npm run dev
+```
+
+Your app will be available at:
+
+    http://localhost:5173
+
+------------------------------------------------------------------------
+
+### Build for Production
+To create a production build, run the following command:
+```bash
+npm run build
+```
+
+The build output will be available in the `dist` folder.
+
+
+---
+
+Thank you for using **Taskify**! Feel free to provide feedback or report issues on the [Issues](https://github.com/RizaAthaya/Taskify/issues) page.
+
