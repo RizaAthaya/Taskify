@@ -1,8 +1,8 @@
-import Dashboard from "@/features/dashboard";
+import NotFoundPage from "@/features/fallback/not-found";
 
 export const fallbackRoutes = [
   {
     path: "*",
-    element: <Dashboard />,
+    element: <NotFoundPage />,
   },
 ];
