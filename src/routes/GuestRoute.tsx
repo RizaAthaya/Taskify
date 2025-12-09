@@ -13,7 +13,7 @@ const GuestRoute: React.FC = () => {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/tasks" replace />;
   }
 
   return <Outlet />;

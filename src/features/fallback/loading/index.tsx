@@ -11,8 +11,10 @@ const LoadingPage: React.FC = () => {
         </div>
 
         {/* Text */}
-        <p className="mt-4 text-lg font-semibold">Please wait, loading your content...</p>
-        <p className="mt-2 text-sm font-medium text-gray-500">This might take a moment</p>
+        <p className="mt-4 text-lg font-semibold">Harap tunggu, sedang memuat konten Anda...</p>
+        <p className="mt-2 text-sm font-medium text-gray-500">
+          Proses ini mungkin membutuhkan beberapa saat
+        </p>
       </div>
     </div>
   );

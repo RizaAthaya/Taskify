@@ -2,3 +2,38 @@
   margin: 0;
   padding: 0;
 }
+
+/* Task Detail Sidebar scoped animations */
+.tds-panel {
+  will-change: transform, opacity;
+}
+
+.tds-enter {
+  animation: tdsSlideIn 500ms ease-out forwards;
+}
+
+.tds-exit {
+  animation: tdsSlideOut 500ms ease-in forwards;
+}
+
+@keyframes tdsSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes tdsSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
