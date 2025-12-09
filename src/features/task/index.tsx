@@ -15,6 +15,7 @@ import { StatusDetailSidebar } from "@/features/status/components/StatusDetailSi
 import { useDeleteStatusAndTasks } from "@/features/status/hooks/useDeleteStatusAndTasks";
 import DeleteStatusPopup from "@/features/status/components/DeleteStatusPopup";
 import Button from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
 
 const Task = () => {
   const { user } = useUser();
@@ -23,15 +24,25 @@ const Task = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [openStatusPopup, setOpenStatusPopup] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: tasks, isLoading, isError, error } = useGetTasksByUser(user?.uid || "");
+  const {
+    data: tasks,
+    isLoading: isTasksLoading,
+    isError,
+    error,
+  } = useGetTasksByUser(user?.uid || "");
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
-  const { data: statuses } = useGetStatusesByUser(user?.uid || "", !!user?.uid);
+  const { data: statuses, isLoading: isStatusesLoading } = useGetStatusesByUser(
+    user?.uid || "",
+    !!user?.uid
+  );
   const [selectedStatus, setSelectedStatus] = useState<IStatus | null>(null);
   const [statusToDelete, setStatusToDelete] = useState<IStatus | null>(null);
   const [statusOrderList, setStatusOrderList] = useState<string[]>([]);
   const baseTasks = tasks || [];
 
   const [localStatus, setLocalStatus] = useState<Record<string, TTaskStatus>>({});
+
+  const isAnyLoading = isTasksLoading || isStatusesLoading;
 
   const updateTaskMutation = useUpdateTask(undefined, (err) => {
     showAlert({ message: err.message || "Gagal memperbarui task", variant: "error" });
@@ -214,11 +225,10 @@ const Task = () => {
           </div>
         </div>
       </div>
-      {isLoading && <p className="text-gray-500 italic">Sedang memuat daftar task...</p>}
 
       {/* KANBAN */}
       <div className="flex gap-4 sm:gap-6 overflow-x-auto py-4">
-        {(!statuses || statuses.length === 0) && !isLoading && (
+        {(!statuses || statuses.length === 0) && !isAnyLoading && (
           <div className="flex flex-col items-center justify-center w-full py-16 text-gray-400 space-y-3">
             <Icon icon="mdi:view-column-outline" className="w-12 h-12" />
             <p className="text-lg font-semibold">Belum ada status</p>
@@ -323,7 +333,7 @@ const Task = () => {
         })}
       </div>
 
-      {baseTasks.length === 0 && !isLoading && (
+      {baseTasks.length === 0 && !isAnyLoading && (
         <div className="flex flex-col items-center justify-center mt-10 text-center text-gray-400">
           <Icon icon="mdi:clipboard-outline" className="w-16 h-16 mb-4 text-gray-300" />
           <p className="text-lg font-semibold">Belum ada task</p>
@@ -361,6 +371,12 @@ const Task = () => {
         onConfirm={handleConfirmDeleteStatus}
         isLoading={deleteStatusMutation.isPending}
       />
+
+      {isAnyLoading && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-white/60 backdrop-blur-sm">
+          <Spinner size="large" />
+        </div>
+      )}
     </div>
   );
 };
