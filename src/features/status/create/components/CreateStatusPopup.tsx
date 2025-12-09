@@ -7,6 +7,7 @@ import TextareaTaskDetail from "@/components/form/textarea/task-detail";
 import Button from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { useAlert } from "@/context/alert/useAlert";
+import { useGetStatusesByUser } from "@/features/status/hooks/useGetStatusesByUser";
 
 interface CreateStatusPopupProps {
   open: boolean;
@@ -17,6 +18,8 @@ interface CreateStatusPopupProps {
 const CreateStatusPopup = ({ open, onClose, userId }: CreateStatusPopupProps) => {
   const { showAlert } = useAlert();
   const [closing, setClosing] = useState(false);
+
+  const { data: existingStatuses } = useGetStatusesByUser(userId || "", !!userId);
 
   const { register, handleSubmit, reset } = useForm<ICreateStatus>({
     defaultValues: {
@@ -51,6 +54,19 @@ const CreateStatusPopup = ({ open, onClose, userId }: CreateStatusPopupProps) =>
     const value = data.value.trim();
     if (!label || !value) {
       showAlert({ message: "Label dan value wajib diisi", variant: "error" });
+      return;
+    }
+
+    const normalizedNewValue = value.toLowerCase();
+    const hasDuplicate = existingStatuses?.some(
+      (s) => (s.value || "").trim().toLowerCase() === normalizedNewValue
+    );
+
+    if (hasDuplicate) {
+      showAlert({
+        message: "Value status sudah dipakai, gunakan value lain yang unik.",
+        variant: "error",
+      });
       return;
     }
 
