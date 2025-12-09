@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { TTaskStatus, TTaskPriority, ICreateTask } from "@/api/task/type";
 import { useCreateTask } from "../../hooks/useCreateTask";
@@ -8,6 +8,7 @@ import Select from "@/components/ui/select";
 import Button from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { useAlert } from "@/context/alert/useAlert";
+import { useGetStatusesByUser } from "@/features/status/hooks/useGetStatusesByUser";
 
 interface CreateTaskPopupProps {
   open: boolean;
@@ -31,6 +32,8 @@ const CreateTaskPopup = ({ open, onClose, userId }: CreateTaskPopupProps) => {
   const [status, setStatus] = useState<TTaskStatus>("todo");
   const [priority, setPriority] = useState<TTaskPriority>("moderate");
 
+  const { data: statuses } = useGetStatusesByUser(userId || "", !!userId);
+
   const handleClose = () => {
     if (closing) return;
     setClosing(true);
@@ -52,8 +55,20 @@ const CreateTaskPopup = ({ open, onClose, userId }: CreateTaskPopupProps) => {
     }
   );
 
+  useEffect(() => {
+    if (!statuses || statuses.length === 0) return;
+
+    const availableValues = statuses.map((s) => s.value as TTaskStatus);
+
+    setStatus((prev) => (availableValues.includes(prev) ? prev : availableValues[0]));
+  }, [statuses]);
+
   const onSubmit = (data: ICreateTask) => {
     if (!userId) return;
+    if (!statuses || statuses.length === 0) {
+      showAlert({ message: "Belum ada status. Buat status terlebih dahulu.", variant: "error" });
+      return;
+    }
     createTaskMutation.mutate({
       userId,
       data: {
@@ -88,27 +103,36 @@ const CreateTaskPopup = ({ open, onClose, userId }: CreateTaskPopupProps) => {
       />
 
       <div className="flex flex-col sm:flex-row gap-4 mb-4">
-        <Select<TTaskStatus>
-          label="Status"
-          value={status}
-          onChange={setStatus}
-          options={[
-            { value: "todo", label: "To Do" },
-            { value: "in-progress", label: "In Progress" },
-            { value: "completed", label: "Completed" },
-          ]}
-        />
-        <Select<TTaskPriority>
-          label="Priority"
-          value={priority}
-          onChange={setPriority}
-          options={[
-            { value: "low", label: "Low" },
-            { value: "moderate", label: "Moderate" },
-            { value: "high", label: "High" },
-            { value: "urgent", label: "Urgent" },
-          ]}
-        />
+        <div className="flex-1">
+          {statuses && statuses.length > 0 ? (
+            <Select<TTaskStatus>
+              label="Status"
+              value={status}
+              onChange={setStatus}
+              options={statuses.map((s) => ({
+                value: s.value as TTaskStatus,
+                label: s.label,
+              }))}
+            />
+          ) : (
+            <p className="text-xs text-red-500 mt-6">
+              Belum ada status. Buat status terlebih dahulu.
+            </p>
+          )}
+        </div>
+        <div className="flex-1">
+          <Select<TTaskPriority>
+            label="Priority"
+            value={priority}
+            onChange={setPriority}
+            options={[
+              { value: "low", label: "Low" },
+              { value: "moderate", label: "Moderate" },
+              { value: "high", label: "High" },
+              { value: "urgent", label: "Urgent" },
+            ]}
+          />
+        </div>
       </div>
 
       {/* Hidden inputs to register select values for validation */}

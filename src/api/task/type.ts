@@ -1,4 +1,4 @@
-export type TTaskStatus = "todo" | "in-progress" | "completed";
+export type TTaskStatus = string;
 export type TTaskPriority = "urgent" | "high" | "moderate" | "low";
 
 export interface ITask {

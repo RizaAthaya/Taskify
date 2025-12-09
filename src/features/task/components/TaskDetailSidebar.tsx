@@ -8,10 +8,11 @@ import { useDeleteTask } from "../hooks/useDeleteTask";
 import Select from "@/components/ui/select";
 import InputTaskDetail from "@/components/form/input/task-detail";
 import TextareaTaskDetail from "@/components/ui/textarea/task-detail";
-import Popup from "@/components/ui/popup";
 import Button from "@/components/ui/button";
 import { useAlert } from "@/context/alert/useAlert";
 import Spinner from "@/components/ui/spinner";
+import { useGetStatusesByUser } from "@/features/status/hooks/useGetStatusesByUser";
+import TaskDeletePopup from "./TaskDeletePopup";
 
 interface TaskDetailSidebarProps {
   task: ITask;
@@ -57,6 +58,8 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
   // Safely observe field values without calling watch() inline in JSX
   const statusValue = useWatch({ control, name: "status" });
   const priorityValue = useWatch({ control, name: "priority" });
+
+  const { data: statuses } = useGetStatusesByUser(userId || "", !!userId);
 
   useEffect(() => {
     reset({
@@ -124,28 +127,37 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
         <InputTaskDetail required register={register("name", { required: true })} />
 
         <div className="flex flex-col sm:flex-row gap-4 mb-4">
-          <Select<TTaskStatus>
-            label="Status"
-            value={statusValue as TTaskStatus}
-            onChange={(v) => setValue("status", v, { shouldDirty: true })}
-            options={[
-              { value: "todo", label: "To Do" },
-              { value: "in-progress", label: "In Progress" },
-              { value: "completed", label: "Completed" },
-            ]}
-          />
+          <div className="flex-1">
+            {statuses && statuses.length > 0 ? (
+              <Select<TTaskStatus>
+                label="Status"
+                value={statusValue as TTaskStatus}
+                onChange={(v) => setValue("status", v, { shouldDirty: true })}
+                options={statuses.map((s) => ({
+                  value: s.value as TTaskStatus,
+                  label: s.label,
+                }))}
+              />
+            ) : (
+              <p className="text-xs text-red-500 mt-6">
+                Belum ada status. Buat status terlebih dahulu.
+              </p>
+            )}
+          </div>
 
-          <Select<TTaskPriority>
-            label="Priority"
-            value={priorityValue as TTaskPriority}
-            onChange={(v) => setValue("priority", v, { shouldDirty: true })}
-            options={[
-              { value: "low", label: "Low" },
-              { value: "moderate", label: "Moderate" },
-              { value: "high", label: "High" },
-              { value: "urgent", label: "Urgent" },
-            ]}
-          />
+          <div className="flex-1">
+            <Select<TTaskPriority>
+              label="Priority"
+              value={priorityValue as TTaskPriority}
+              onChange={(v) => setValue("priority", v, { shouldDirty: true })}
+              options={[
+                { value: "low", label: "Low" },
+                { value: "moderate", label: "Moderate" },
+                { value: "high", label: "High" },
+                { value: "urgent", label: "Urgent" },
+              ]}
+            />
+          </div>
         </div>
 
         <TextareaTaskDetail register={register("description")} />
@@ -163,21 +175,11 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, onCl
           </button>
         </div>
 
-        <Popup
+        <TaskDeletePopup
           open={confirmDelete}
-          onClose={() => setConfirmDelete(false)}
-          title="Delete Task"
-          description="Are you sure you want to delete this task?"
-          actions={
-            <>
-              <Button variant="neutral" onClick={() => setConfirmDelete(false)}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={handleDelete}>
-                Yes
-              </Button>
-            </>
-          }
+          onCancel={() => setConfirmDelete(false)}
+          onConfirm={handleDelete}
+          isLoading={deleteTaskMutation.isPending}
         />
       </div>
     </>

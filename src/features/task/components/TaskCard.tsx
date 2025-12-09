@@ -3,15 +3,19 @@ import { Icon } from "@iconify/react";
 import type { ITask, TTaskPriority } from "@/api/task/type";
 import { useUpdateTask } from "../hooks/useUpdateTask";
 import { useUser } from "@/context/user/useUser";
-import { PRIORITY_BADGE, STATUS_BADGE } from "@/components/ui/filter/constants";
+import { PRIORITY_BADGE } from "@/components/ui/filter/constants";
 import { useAlert } from "@/context/alert/useAlert";
 
 interface TaskCardProps {
   task: ITask;
   onOpenDetail?: () => void;
+  statusVisual?: {
+    icon: string;
+    colorClass: string;
+  };
 }
 
-export const TaskCard: React.FC<TaskCardProps> = ({ task, onOpenDetail }) => {
+export const TaskCard: React.FC<TaskCardProps> = ({ task, onOpenDetail, statusVisual }) => {
   const [editable, setEditable] = useState(false);
   const [name, setName] = useState(task.name);
   const [priority, setPriority] = useState<TTaskPriority>(task.priority);
@@ -34,16 +38,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onOpenDetail }) => {
     });
   };
 
-  const getStatusIcon = () => {
-    switch (task.status) {
-      case "completed":
-        return "mdi:check-circle";
-      case "in-progress":
-        return "mdi:progress-clock";
-      default:
-        return "mdi:check-circle-outline";
-    }
-  };
+  const statusIcon = statusVisual?.icon ?? "mdi:checkbox-blank-circle-outline";
+  const statusColorClass = statusVisual?.colorClass ?? "text-gray-400";
 
   const buttonClass = editable
     ? "bg-green-700 text-white hover:bg-green-600"
@@ -77,10 +73,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onOpenDetail }) => {
       {/* Title */}
       <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center gap-2">
         <span className="w-6 h-6 flex items-center justify-center">
-          <Icon
-            icon={getStatusIcon()}
-            className={`w-6 h-6 ${STATUS_BADGE[task.status].split(" ")[1]}`}
-          />
+          <Icon icon={statusIcon} className={`w-6 h-6 ${statusColorClass}`} />
         </span>
         {editable ? (
           <input

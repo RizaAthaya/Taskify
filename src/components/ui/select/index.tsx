@@ -40,7 +40,7 @@ const Select = <T extends string>({
   const isError = Boolean(errorMessage);
 
   return (
-    <div className="w-full flex flex-col gap-1 relative" ref={wrapperRef}>
+    <div className="w-full flex flex-col gap-1 relative min-w-20" ref={wrapperRef}>
       {/* Label */}
       {label && (
         <label className="text-sm font-semibold text-purple-700">
@@ -73,7 +73,7 @@ const Select = <T extends string>({
 
       {/* Dropdown List */}
       {open && (
-        <div className="absolute mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md z-50 max-h-60 overflow-auto">
+        <div className="absolute mt-18 w-full bg-white border border-gray-300 rounded-lg shadow-md z-50 max-h-60 overflow-auto">
           {options.map((opt) => (
             <div
               key={opt.value}
