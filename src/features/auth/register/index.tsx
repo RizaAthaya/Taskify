@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm";
 import GoogleForm from "../components/google/GoogleForm";
+import todo from "../../../assets/todos.svg";
+import work from "../../../assets/work.jpg";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ const Register = () => {
       <div className="w-full h-full lg:w-1/2 flex items-center justify-center relative overflow-hidden bg-purple-800">
         {/* Background Image */}
         <img
-          src="/src/assets/work.jpg"
+          src={work}
           alt="Work background"
           loading="eager"
           fetchPriority="high"
@@ -80,7 +82,7 @@ const Register = () => {
 
         {/* Image with fade-in */}
         <img
-          src="/src/assets/todos.svg"
+          src={todo}
           alt="Todos illustration"
           className={`max-w-md xl:max-w-lg transition-opacity duration-700 z-10 ${
             rightLoaded ? "opacity-100" : "opacity-0"

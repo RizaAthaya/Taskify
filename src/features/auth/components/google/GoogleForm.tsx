@@ -2,6 +2,7 @@ import { useAlert } from "@/context/alert/useAlert";
 import { useLoginWithGoogle } from "../../login/hooks/useLoginWithGoogle";
 import Spinner from "@/components/ui/spinner";
 import { log } from "@/utils/log";
+import google from "../../../../assets/google.png";
 
 const GoogleForm = () => {
   const { showAlert } = useAlert();
@@ -25,7 +26,7 @@ const GoogleForm = () => {
       <span
         className={`flex items-center transition-opacity duration-300 ${isPending ? "opacity-0" : "opacity-100"}`}
       >
-        <img src="/src/assets/google.png" alt="Google logo" className="w-5 h-5 mr-3" />
+        <img src={google} alt="Google logo" className="w-5 h-5 mr-3" />
         Sign in with Google
       </span>
 
