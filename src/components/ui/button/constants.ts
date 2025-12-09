@@ -16,6 +16,11 @@ export const BUTTON_VARIANTS: Record<TButtonVariant, string> = {
     "rounded-[12px] text-white hover:opacity-90 active:opacity-80 " +
     "disabled:opacity-50 disabled:cursor-not-allowed",
 
+  neutral:
+    "bg-gray-200 rounded-lg hover:bg-gray-300 text-gray-800 hover:text-gray-900 " +
+    "active:bg-gray-400 disabled:bg-gray-100 disabled:text-gray-400 " +
+    "border border-gray-300 hover:border-gray-400 active:border-gray-500",
+
   plain: "",
 };
 

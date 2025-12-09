@@ -1,0 +1,11 @@
+export const QUERY_KEY = {
+  LOGIN: "LOGIN",
+  REGISTER: "REGISTER",
+  TASK: {
+    LIST: "TASK_LIST_BY_USER",
+    DETAIL: "TASK_DETAIL",
+    CREATE: "TASK_CREATE",
+    UPDATE: "TASK_UPDATE",
+    DELETE: "TASK_DELETE",
+  },
+};

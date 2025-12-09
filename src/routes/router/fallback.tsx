@@ -1,8 +1,8 @@
-import Dashboard from "@/features/dashboard";
+import Task from "@/features/task";
 
 export const fallbackRoutes = [
   {
     path: "*",
-    element: <Dashboard />,
+    element: <Task />,
   },
 ];
