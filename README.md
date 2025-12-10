@@ -73,6 +73,12 @@ Copy `.env.example` into `.env`:
 cp .env.example .env
 ```
 
+or
+
+``` bash
+copy .env.example .env
+```
+
 ### 5️⃣ **Start the development server**
 
 ``` bash
